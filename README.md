@@ -1,18 +1,17 @@
 # PODuino v1.0
 
-The Poduino v1.0 is a development board that combines the *Arduino Mega 2560*
+The **Poduino v1.0** is a development board that combines the *Arduino Mega 2560*
 with and *IOTile Device*.
 
-The *Arduino Mega 2560* in the PODuino is just another Arduno, and can be used on its own like
-any other Arduino. Most every *Arduino Mega 2560* example/tutorial should work with the PODuino.
+The **Arduino Mega 2560** in the **PODuino** is just another Arduno, and can be used on its own like
+any other Arduino. Most every **Arduino Mega 2560** example/tutorial should work with the **PODuino**.
 
 ## PODuino differences
 
-The following pins are used to connect the *Arduino Mega 2560* with the rest of the *IOTile Device*:
+The following pins are used to connect the **Arduino Mega 2560** with the rest of the **IOTile Device**:
 
-|--|--|
-| Pin | IOTile GPIO Description |
-|--|--|
+| **Pin** | **IOTile GPIO Description** |
+|---	|---	|
 | 14 | TX3 |
 | 15 | RX3 |
 | 39 | Digital |
@@ -54,8 +53,8 @@ See http://coretools.readthedocs.io/en/latest/ for complete documentation.
 ### Arduino IDE Setup
 
 If you have never used an Arduino, it is recommended you read the [Arduino Mega 2560 Getting Started](https://www.arduino.cc/en/Guide/ArduinoMega2560). 
-and the many available tutorials. Just make sure you select *Arduino Mega 2560* when selecting which Arduino you have. 
-The *Arduino Mega 2560* in the PODuino is just a regular Arduino, and can be used on its own like any other Arduino.
+and the many available tutorials. Just make sure you select **Arduino Mega 2560** when selecting which Arduino you have. 
+The **Arduino Mega 2560** in the **PODuino** is just a regular Arduino, and can be used on its own like any other Arduino.
 
 
 
