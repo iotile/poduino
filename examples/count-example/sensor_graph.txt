@@ -1,0 +1,14 @@
+disable
+clear
+reset
+
+add_node "(input 10 always) => output 1 using copyA"
+
+add_node "(system input 1025 always && constant 1 always) => unbuffered node 20 using triggerStreamer"
+set_constant "constant 1" 0
+
+add_streamer "all outputs" controller False hashedlist telegram
+add_streamer "all system outputs" controller False hashedlist telegram --withother=0
+
+persist
+enable

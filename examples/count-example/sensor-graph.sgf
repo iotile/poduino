@@ -1,0 +1,4 @@
+on input 10
+{
+    copy => output 1;
+}
