@@ -1,26 +1,25 @@
 # Up/Down Counter
 
-Simple example shows how to use the PODuino and the OSEPP LCD display to allow users to count up or down,
-recording each time the count changes and uploading that to the IOTile Cloud
+A simple example that shows how to use the PODuino and the OSEPP LCD display to allow users to count up or down, recording each time the count changes and uploading that to the IOTile Cloud.
 
-## Need
+## Materials
 
 1. PODuino v1.0
 1. BLE112 Dongle
-1. OSEPP *16×2 LCD Display & Keypad Shield*: https://www.osepp.com/electronic-modules/shields/45-16-2-lcd-display-keypad-shield
+1. [OSEPP *16×2 LCD Display & Keypad Shield*](https://www.osepp.com/electronic-modules/shields/45-16-2-lcd-display-keypad-shield)
 
-# Introduction
+## Software
 
 ### Arduino IDE Setup
 
-If you have never used an Arduino, read the following [Arduino Mega 2650 Getting Started](https://www.arduino.cc/en/Guide/ArduinoMega2560)
+If you have never used an Arduino, read [Arduino Mega 2650 Getting Started](https://www.arduino.cc/en/Guide/ArduinoMega2560).
 
 If you're using the PODuino, go to the Arduino IDE, choose Sketch -> Include Library -> Add .zip Library and select the IOTileBridgeMega.zip
-folder downloaded from [here](https://github.com/iotile/tile_gpio/tree/master/firm_arduino_bridge/extra)
+folder downloaded from [here](https://github.com/iotile/tile_gpio/tree/master/firm_arduino_bridge/extra).
 
 ### IOTile Tool Setup
 
-See the main readme to learn how to install the required Arduino IDE and IOTile tools:
+See the main README to learn how to install the required Arduino IDE and IOTile tools:
 
 ```
 virtualenv poduino
@@ -29,50 +28,59 @@ source poduino/bin/activate
 pip install --upgrade iotile-core iotile-transport-bled112 iotile-support-firm-arduino-bridge-0 iotile-support-con-nrf52832-2 iotile-support-lib-controller-3 --extra-index-url https://pypi.fury.io/sKv8PCZngFJ-g_oEqjfc/iotile/
 ```
 
+
+# Introduction
+
 ### Sketch
 
 Using the Arduino IDE, open the `firmware.ino` file included in this example.
 
 This sketch will listen at the Up and Down buttons in the LCD display, and when pressed,
-it will increment or decrement an in-memory counter. This counter is restricted within 0 and 100.
+it will increment or decrement an in-memory counter. This counter is restricted within the range 0 to 100.
 
 The sketch will also send the counter value every time it is modified to `input 10` in the IOTile Controller.
 Later we will describe the required IOTile Configuration to have this input copied to a buffered output that
-will be sent to the cloud every time the IOTile Mobile app or IOTile Gateway connects to the PODuino.
+will be sent to the cloud every time the IOTile Mobile app or an IOTile Gateway connects to the PODuino.
 
 Finally, the sketch also listens to `Event 0` from the IOTile Controller, and will reset the counter when
 called.
 
 ### Programming the PODuino
 
-The PODuino requires two seperate steps to configure:
+The PODuino requires two separate steps to configure:
 
-1. The Arduino Mega needs to be programmed via the USB Cable and a computer the same way any Arduino compatible
-board is programmed. There is a number of tutorials and blogs explaining how to program an Arduino. Just make sure
-you select the *Arduino Mega 2560* when
+1. The Arduino Mega needs to be programmed via the USB Cable and a computer the same way any Arduino compatible board is programmed. There are a number of tutorials and blogs explaining how to program an Arduino. Just make sure you use instructions compatible with the *Arduino Mega 2560*.
 
-1. The rest of the IOTile device is already pre-programmed with the IOTile firmware, but requires a Sensor Graph 
-to be configured the device is to be used as a logger. We will explain how to configure the Sensor Graph later on.
+1. The rest of the IOTile device is already pre-programmed with the IOTile firmware, but requires a Sensor Graph
+to be configured for the device to be used as a logger. We will explain how to configure the Sensor Graph later on.
 
 # Tutorial
 
-## 1. Connect the PODuino with a USB Cable to a computer
+## Part 1: Arduino
 
-The computer should have both the Arduino IDE and IOTile Tools installed.
+### 1. Hardware Setup
 
-## 2. Upload the Sketch to the Arduino
+Connect the PODuino with a USB Cable to a computer: you will need the device to be connected
+to upload the program initially. The computer should have both the Arduino IDE and IOTile Tools installed.
+
+Attach the LCD display shield to your PODuino board as shown below:
+
+INSERT IMAGE HERE
+
+### 2. Upload the Sketch to the Arduino
 
 Follow instructions in [Arduino Mega 2560 Getting Started](https://www.arduino.cc/en/Guide/ArduinoMega2560).
 
-At this point, the Arduino portion is configured and you can disconnect the USB cable if you wish. 
+At this point, the Arduino portion is configured and you can disconnect the USB cable if you wish.
 The USB cable is only used for programming the Arduino portion, but can also be used as power source.
 
-You should see the LCD Display show *Poduino Counter*, showing *0* as value of counter. If you press
-the Up or Down buttons, you should see this value change.
+You should see the LCD Display show *Poduino Counter*, showing *0* as the current value of the counter. If you press the Up or Down buttons, you should see this value change.
 
-## 3. Introduction to the IOTile Coretools
+## Part 2: IOTile PODuino Controller
 
-Probably one of the key advatages of the PODuino over other Arduino boards is the fact that you
+### 3. Introduction to the IOTile Coretools
+
+Probably one of the key advantages of the PODuino over other Arduino boards is the fact that you
 can use the IOTile Device and IOTile Tools to control or read information from the Arduino via
 BLE.
 
@@ -80,7 +88,7 @@ IOTile Tools currently only support communication to the IOTile Controller in th
 the [BLE112 Dongle](https://www.digikey.com/catalog/en/partgroup/bled112-bluetooth-smart-dongle/40600)
 which either came with your PODuino or you can buy from Arch Systems or other sources.
 
-Once you connect the BLE112 dongle to your computer, you can imediately use it to communicate with
+Once you connect the BLE112 dongle to your computer, you can immediately use it to communicate with
 the PODuino in general, and the Arduino Mega in particular. Make sure you are within 50 feet of your PODuino as you scan for it.
 
 See [IOTile Coretools Documentation](http://coretools.readthedocs.io/en/latest/) to learn the full
@@ -93,12 +101,12 @@ following key concepts:
 where the last 12 digits represent the device ID in HEX, so `0x00000000001f == 0x1f == 31`.
 The ID of your device should be shown on the label sticker on your PODuino.
 
-- Using the IOTile tools, you connect to a given device with `iotile hw --port=bled112 connect <ID>`
+- Using the IOTile Coretools, you connect to a given device from your terminal with `iotile hw --port=bled112 connect <ID>`
 (using ID=0x1f, `iotile hw --port=bled112 connect 0x1f`). Commands can be chained, so you can
 also do `iotile hw --port=bled112 connect 0x1f get 11` to connect to device `0x1f` and then to
 tile `11`.
 
-- IOTile Devices are build from a set of Tiles, each responding to a set of RPC commands. 
+- IOTile Devices are built from a set of Tiles, each responding to a set of RPC commands.
 In the case of the PODuino, the Arduino Mega bridge is represented as Tile number `11`.
 
 - Tile `11` has a very simple interface, supporting basically two basic commands:
@@ -109,12 +117,12 @@ In the case of the PODuino, the Arduino Mega bridge is represented as Tile numbe
    which returns the stream input ID, `10` in our example, and the actual value sent, which
    in our case, is the value of `count`.
 
-## 4. Connecting and controller our Arduino via the IOTile device
+### 4. Connecting and controlling our Arduino via the IOTile device
 
-Now that we understand the most basic functionlity of the PODuino IOTile bridge, we can actually
-control our device. 
+Now that we understand the most basic functionality of the PODuino IOTile bridge, we can actually
+control our device.
 
-Note that in this example, the sketch only uses event `0`, which is uses to reset the count to zero.
+Note that in this example, the sketch only uses event `0`, which it uses to reset the count to zero.
 
 ```
 # Connect to Device d--0000-0000-0000-001f and to the Arduino bridge
@@ -134,15 +142,15 @@ value: 0
 stream: 10
 ```
 
-## 5. Introduction to the sensor graph
+### 5. Introduction to the sensor graph
 
 The IOTile devices can be configured with what is called a Sensor Graph, which can be
-considered as a simple app which basically represent the data flow. So for example, 
+considered as a simple app which basically represent the data flow. So for example,
 the sensor graph can be configured to take readings every 10min, or 1hr.
 
 The sensor graph is specially useful when you want to use the device as a data logger,
 as it automatically handles the storage of any output you define, and then configured
-to send a *streamer report* (which is basically a data file with all readings) when 
+to send a *streamer report* (which is basically a data file with all readings) when
 somebody connects via the BLE. If using the *IOTile Companion* App or *IOTile Gateway*,
 this streamer report will automatically be uploaded to the *IOTile Cloud*, taking care
 of an incredibly amount of complexity for you.
@@ -158,7 +166,7 @@ IOTile device clock counts time from the last reboot of the device). The
 streamer contains all `output 1` readings (remember that `output 1` came from `input 10`
 which itself came  from the Arduino via `bridge.sendEvent()` command).
 
-## 6. Programming the Sensor Graph
+### 6. Programming the Sensor Graph
 
 The IOTile Coretools does not only allow you to control the device via the BLE112 dongle,
 but also allows you to program the sensor graph via BLE.
@@ -213,7 +221,7 @@ program the sensor graph and confirm it worked:
 prepare_device.sh 0x1f
 ```
 
-## 7. The IOTile Cloud
+## Part 3: The IOTile Cloud
 
 The **IOTile Cloud** was built especially to work with **IOTile Devices**, so it makes it really
 easy for you to upload data, visualize it, and access it via a simple Rest API.
@@ -229,26 +237,26 @@ by Project.
    - Your globally unique device ID
    - A variable ID representing the `output stream` you used in your device (i.e. `output 1`).
    The variable is used to mapped the encoded output stream ID (`output 1`) to a readable, user
-   friendly name (say, `COUNT`). Trying to keep this tutorial simple, we are not explaining 
-   how to come up with the vaiable ID that you need to use, but for now, just know that `output 1`
+   friendly name (say, `COUNT`). Trying to keep this tutorial simple, we are not explaining
+   how to come up with the variable ID that you need to use, but for now, just know that `output 1`
    is represented as ID `0x5001` just as `output 2` would be represented by `0x5002` and so on.
    - The stream ID is then formatted as `s--<projectID>--<deviceID>--<variableID>`. In our example,
-   we would need Stream ID `s--0000-1234--0000-0000-0000-001f--5001` where we assume the project ID is 
+   we would need Stream ID `s--0000-1234--0000-0000-0000-001f--5001` where we assume the project ID is
    `0x1234`.
 - The data stream is always a *Time Series* with a timestamp and a value.
 
-## 8. Register to IOTile Cloud
+### 7. Register to IOTile Cloud
 
 Get an account at https://iotile.cloud
 
 Make sure you check your email and confirm the registration.
 
-## 9. Setup an Organization and Project
+### 8. Setup an Organization and Project
 
 Create an Organization and a Project. Remember that this Project will contain your device
 and stream data.
 
-## 10. Download the IOTile Companion App
+### 9. Download the IOTile Companion App
 
 The **IOTile Companion** Mobile App enables you to easily claim and connect to the NFC300 via Bluetooth Low Energy (BLE) using your mobile phone or tablet.
 Install and open the IOTile Companion App from the iOS or Google Play App Store.
@@ -257,9 +265,9 @@ Install and open the IOTile Companion App from the iOS or Google Play App Store.
 
 [Google Play](https://play.google.com/store/apps/details?id=com.archiot.iotileapp&hl=en)
 
-## 11. Claim your PODuino Device
+### 10. Claim your PODuino Device
 
-1. Using the **IOTile Companion**, login using your email and password. 
+1. Using the **IOTile Companion**, login using your email and password.
 1. Tap the menu icon in the upper left to bring up the main menu. You will need to enable Bluetooth on your mobile phone or tablet to complete the setup.
 1. Select “New Device Setup”. Make sure you are within 50 feet of your PODuino as you scan for it.
 1. Select your device. If there are multiple choices, match your selection with the number on the side of the PODuino you want to set up.
@@ -271,9 +279,9 @@ After you claim your device, the Device ID will be associated to your project.
 
 You are now ready to collect data.
 
-## 12. Setup Variables
+### 11. Setup Variables
 
-Go back to https://iotile.cloud, and on your project page, use the left menu, 
+Go back to https://iotile.cloud, and on your project page, use the left menu,
 under *Project Settings*, select *Data Stream Variables*, and click **New Variable**:
 
 - **Name:** Count
@@ -284,7 +292,7 @@ under *Project Settings*, select *Data Stream Variables*, and click **New Variab
 
 After creating the Variable, click on **IO Configuration**:
 
-- Leave **Multiply**, **Divide** and **Offset** with thedefaults.
+- Leave **Multiply**, **Divide** and **Offset** with the defaults.
 - **Input Units**: Unit
 - **Value Type**: int
 - **Output Units**: Unit
@@ -292,20 +300,20 @@ After creating the Variable, click on **IO Configuration**:
 While not needed in this case, the **Multiply**, **Divide** and **Offset** could be
 used to make the cloud modify each value that it receives by `value * / d + o`.
 
-Note that you should NOT pick any other option as **VarType** as those may not work 
+Note that you should NOT pick any other option as **VarType** as those may not work
 as expected with your PODuino.
 
-## 13. Review your Data Stream
+### 12. Review your Data Stream
 
 After creating the variable, you should automatically get a Data Stream created
 for you.
 Use the left menu, under *Project Settings*, select *Data Streams*, and confirm
 that you have a stream that matches your device and variable.
 
-## Upload Data
+### Upload Data
 
 Go back to the PODuino, power it up, and start playing with the UP and DOWN buttons.
-When you are ready to upload the data, use the **IOTile Companion** to select the 
+When you are ready to upload the data, use the **IOTile Companion** to select the
 project.
 
 If you are within 50 feet, click on the **Collect All** button in the bottom of
@@ -320,12 +328,3 @@ a graph with the `count` data sent by your PODuino.
 
 At this point, you have successfully managed to control the PODuino and build a data
 logger. All with BLE support, and without writing any web site code.
-
-
-
-
-
-
-
-
-
