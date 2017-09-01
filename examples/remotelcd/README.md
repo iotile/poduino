@@ -8,7 +8,7 @@ The following table describes how to display these custom characters (hex values
 
 
 | **Digit** | **Upper digit** | **Lower digit** |
-|---	|---|---|
+|---|---|---|
 | 0 | `\x06` | `\x07` |
 | 1 | `\x00` | `\x00` |
 | 2 | `\x04` | `\x02` |
@@ -19,3 +19,10 @@ The following table describes how to display these custom characters (hex values
 | 7 | `\x05` | `\x00` |
 | 8 | `\xFC` | `\xFC` |
 | 9 | `\xFC` | `\x01` |
+
+Supported special codes are :
+
+| ***Hex code*** | ***Action*** |
+|---|---|
+| `\x0d` | Go to second line |
+|`\x18` | Clear screen and go to first line|
