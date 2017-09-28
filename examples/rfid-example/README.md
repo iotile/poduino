@@ -16,7 +16,7 @@ recording each time the count changes and uploading that to the IOTile Cloud
 If you have never used an Arduino, read the following [Arduino Mega 2650 Getting Started](https://www.arduino.cc/en/Guide/ArduinoMega2560)
 
 If you're using the PODuino, go to the Arduino IDE, choose Sketch -> Include Library -> Add .zip Library and select the IOTileBridgeMega.zip
-folder downloaded from [here](https://github.com/iotile/tile_gpio/tree/master/firm_arduino_bridge/extra)
+folder downloaded from [here](https://github.com/iotile/poduino/tree/master/downloads)
 
 ### IOTile Tool Setup
 
@@ -207,7 +207,7 @@ The two add_streamer lines configure sensor graph to send data to the cloud in t
 The persist line saves the sensor graph to flash so it persists across device resets and the enable line starts the new sensor graph.
 
 Now that you have done this step by step at least once, you can use the following command to
-program the sensor graph and confirm it worked:
+program the sensor graph and confirm it worked (again, change `0x1f` with your own device ID):
 
 ```
 prepare_device.sh 0x1f

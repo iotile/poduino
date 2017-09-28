@@ -63,5 +63,5 @@ Otherwise, make sure you have the [latest Arduino IDE](https://www.arduino.cc/en
 You need to install the IOTileBridge library (you can find the latest version as a GitHub release).
 
 If you're using the PODuino, go to the Arduino IDE, choose Sketch -> Include Library -> Add .zip Library and select the IOTileBridgeMega.zip
-folder downloaded from [here](https://github.com/iotile/tile_gpio/tree/master/firm_arduino_bridge/extra)
+folder downloaded from [here](https://github.com/iotile/poduino/tree/master/downloads)
 
