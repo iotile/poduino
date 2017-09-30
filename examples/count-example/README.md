@@ -230,7 +230,7 @@ See [IOTile Cloud Basics](../../docs/iotile-cloud-basics.md)
 ### 7. Setup Variables
 
 Go back to https://iotile.cloud, and on your project page, use the left menu,
-under *Project Settings*, select *Data Stream Variables*, and click **New Variable** (replace XXX with a variable ID, like `01`):
+under *Project Settings*, select *Data Stream Variables*, and click **New Variable**:
 
 - **Name:** Count
 - **ID (Hex):** 5001

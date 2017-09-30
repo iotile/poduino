@@ -6,6 +6,8 @@ with and *IOTile Device*.
 The **Arduino Mega 2560** in the **PODuino** is just another Arduno, and can be used on its own like
 any other Arduino. Most every **Arduino Mega 2560** example/tutorial should work with the **PODuino**.
 
+![PODuino IOTile Device](/images/poduino.jpg)
+
 ## PODuino differences
 
 The following pins are used to connect the **Arduino Mega 2560** with the rest of the **IOTile Device**:
@@ -16,56 +18,28 @@ The following pins are used to connect the **Arduino Mega 2560** with the rest o
 | 15 | RX3 |
 | 39 | Digital |
 
+Make sure you have a jumper installed on your PODuino as follows
+
+![PODuino Jumper Setup](/images/jumper.jpg)
+
 ## Installation
 
 In order for you to use the PODuino with the Arduino IDE, you must install the *IOTileBridge library*.
 
-You will also need to install the python IOTile tools to be able to configure the PODuino, controll it via BLE,
-or debug it.
+You will also need to install the python IOTile tools to be able to configure the PODuino, controll it via BLE, or debug it.
 
-### IOTile Core Tools
+Read the installation instructions for the [IOTile Coretools](/docs/installation/iotile-coretools.md) and [IOTile Arduino Bridge](/docs/installation/iotile-arduino-bridge.md)
 
-Make sure you have Python 2.7.9+ installed. Like with any other Python package, it is highly recommended
-that you use `virtualenv` to install these packages on:
+## Hello World!
 
-```
-pip install virtualenv
-virtualenv --python=python2.7 iotile
+#### Start with the [PODuino Blink Tutorial](/examples/blink-tutorial/README.md)
 
-#On Mac/Linux
-source iotile/bin/activate
+## Additional Tutorials and Examples
 
-#On Windows Powershell
-iotile/Scripts/activate.ps1
+A few tutorials and examples are included under the `/examples` directory.
 
-#On Windows CMD
-iotile\Scripts\activate.bat
-```
-
-Then install the required packages by typing:
-
-```
-pip install --upgrade iotile-core iotile-transport-bled112 iotile-support-firm-arduino-bridge-0 iotile-support-con-nrf52832-2 iotile-support-lib-controller-3 --extra-index-url https://pypi.fury.io/sKv8PCZngFJ-g_oEqjfc/iotile/
-```
-
-See http://coretools.readthedocs.io/en/latest/ for complete documentation.
-
-To also use the stand-alone **IOTile Cloud API** with python, do
-
-```
-pip install iotile-cloud
-```
-
-### Arduino IDE Setup
-
-If you have never used an Arduino, it is recommended you read the [Arduino Mega 2560 Getting Started](https://www.arduino.cc/en/Guide/ArduinoMega2560). 
-and the many available tutorials. Just make sure you select **Arduino Mega 2560** when selecting which Arduino you have. 
-The **Arduino Mega 2560** in the **PODuino** is just a regular Arduino, and can be used on its own like any other Arduino.
-
-Otherwise, make sure you have the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software)
-
-You need to install the IOTileBridge library (you can find the latest version as a GitHub release).
-
-If you're using the PODuino, go to the Arduino IDE, choose Sketch -> Include Library -> Add .zip Library and select the IOTileBridgeMega.zip
-folder downloaded from [here](https://github.com/iotile/poduino/tree/master/downloads)
-
+| **Example** | **Description** |
+|---	|---	|
+| [blink-tutorial](/examples/blink-tutorial/README.md) | Start with this simple example |
+| [count-example](/examples/count-example/README.md) | A more elaborated but still simple count up/down example |
+| [rfid-example](/examples/rfid-example/README.md) | Example of an RFID reader (incomplete) |
