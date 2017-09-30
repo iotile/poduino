@@ -50,13 +50,17 @@ pip install --upgrade iotile-core iotile-transport-bled112 iotile-support-firm-a
 
 See http://coretools.readthedocs.io/en/latest/ for complete documentation.
 
+To also use the stand-alone **IOTile Cloud API** with python, do
+
+```
+pip install iotile-cloud
+```
+
 ### Arduino IDE Setup
 
 If you have never used an Arduino, it is recommended you read the [Arduino Mega 2560 Getting Started](https://www.arduino.cc/en/Guide/ArduinoMega2560). 
 and the many available tutorials. Just make sure you select **Arduino Mega 2560** when selecting which Arduino you have. 
 The **Arduino Mega 2560** in the **PODuino** is just a regular Arduino, and can be used on its own like any other Arduino.
-
-
 
 Otherwise, make sure you have the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software)
 
