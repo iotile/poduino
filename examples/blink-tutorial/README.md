@@ -6,7 +6,7 @@ This is the simplest example to demonstrate how to use the PODuino and IOTile co
 
 The PODuino can be used just like any other **Arduino Mega 2560**, and theefore, any example you can find on the web for this board should work on the PODuino.
 
-So, lets start with the traditional [Blink Example](https://www.arduino.cc/en/Tutorial/Blink) usually used as the first tutorial for a new Arduino user. 
+So, lets start with the traditional [Arduino Blink Example](https://www.arduino.cc/en/Tutorial/Blink) usually used as the first tutorial for a new Arduino user. 
 
 If you have not done it, make sure you have the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software).
 
@@ -14,9 +14,9 @@ But lets get the PODuino version of this example:
 
 ### HW Setup
 
-The equivalent of the **Hello World!** for an Arduino is to make its internal LED blink. This can be done on the PODuino (as with most Arduinos) by just following the [Blink Example](https://www.arduino.cc/en/Tutorial/Blink). 
+The equivalent of the **Hello World!** for an Arduino is to make its internal LED blink. This can be done on the PODuino (as with most Arduinos).
 
-Basically, simple open the Arduino IDE, create a new file, and copy the following code:
+Open the Arduino IDE, create a new file, and copy the following code:
 
 ```
 void setup() {
@@ -65,38 +65,13 @@ Connect your PODuino to your computer via the USB, and using the Arduino IDE, cl
 
 Lets now use the IOTile side of the PODuino to remotely turn the same LED ON or OFF. This will demonstrate the value of the PODuino over other traditional Arduino boards.
 
-#### Install the IOTile Arduino Bridge
+#### Install necessary Software Tools
 
-The Arduino Mega in the PODuino is connected to an GPIO IOTile, which while simple, allows you to both control the Arduino and have the Arduino communicate back with the IOTile side. 
+You will need access to Python 2.7+ and the following tools:
 
-To make this easy, an Arduino IDE library has to be downloaded and installed on your local IDE.
-
-1. Downlaod the Library from the [/downloads directory](https://github.com/iotile/poduino/tree/master/downloads)
-2. From the Arduino IDE, choose Sketch -> Include Library -> Add .zip Library and select the IOTileBridgeMega.zip you just downloaded.
-
-#### Install the Python core tools
-
-Make sure you have Python 2.7.9+ installed. Like with any other Python package, it is highly recommended that you use `virtualenv` to install these packages on:
-
-```
-pip install virtualenv
-virtualenv --python=python2.7 iotile
-
-#On Mac/Linux
-source iotile/bin/activate
-
-#On Windows Powershell
-iotile/Scripts/activate.ps1
-
-#On Windows CMD
-iotile\Scripts\activate.bat
-```
-
-Then install the required packages by typing:
-
-```
-pip install --upgrade iotile-core iotile-transport-bled112 iotile-support-firm-arduino-bridge-0 iotile-support-con-nrf52832-2 iotile-support-lib-controller-3 --extra-index-url https://pypi.fury.io/sKv8PCZngFJ-g_oEqjfc/iotile/
-```
+1. Install the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software)
+2. Install the [IOTile Coretools](/docs/installation/iotile-coretools.md) 
+3. Install the [IOTile Arduino Bridge](/docs/installation/iotile-arduino-bridge.md)
 
 #### BLE Dongle
 

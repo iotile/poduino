@@ -24,11 +24,11 @@ Make sure you have a jumper installed on your PODuino as follows
 
 ## Installation
 
-In order for you to use the PODuino with the Arduino IDE, you must install the *IOTileBridge library*.
+In order for you to use the PODuino, you will require Python 2.7 to be install in your machine. In addition, you will need:
 
-You will also need to install the python IOTile tools to be able to configure the PODuino, controll it via BLE, or debug it.
-
-Read the installation instructions for the [IOTile Coretools](/docs/installation/iotile-coretools.md) and [IOTile Arduino Bridge](/docs/installation/iotile-arduino-bridge.md)
+1. Install the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software)
+2. Install the [IOTile Coretools](/docs/installation/iotile-coretools.md) 
+3. Install the [IOTile Arduino Bridge](/docs/installation/iotile-arduino-bridge.md)
 
 ## Hello World!
 

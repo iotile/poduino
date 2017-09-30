@@ -10,24 +10,10 @@ A simple example that shows how to use the PODuino and the OSEPP LCD display to 
 
 ## Software
 
-### Arduino IDE Setup
+Install necessary software with:
 
-If you have never used an Arduino, read [Arduino Mega 2650 Getting Started](https://www.arduino.cc/en/Guide/ArduinoMega2560).
-
-If you're using the PODuino, go to the Arduino IDE, choose Sketch -> Include Library -> Add .zip Library and select the IOTileBridgeMega.zip
-folder downloaded from [here](https://github.com/iotile/poduino/tree/master/downloads).
-
-### IOTile Tool Setup
-
-See the main README to learn how to install the required Arduino IDE and IOTile tools:
-
-```
-virtualenv poduino
-source poduino/bin/activate
-
-pip install --upgrade iotile-core iotile-transport-bled112 iotile-support-firm-arduino-bridge-0 iotile-support-con-nrf52832-2 iotile-support-lib-controller-3 --extra-index-url https://pypi.fury.io/sKv8PCZngFJ-g_oEqjfc/iotile/
-```
-
+1. Install the [IOTile Coretools](/docs/installation/iotile-coretools.md) 
+2. Install the [IOTile Arduino Bridge](/docs/installation/iotile-arduino-bridge.md)
 
 # Introduction
 
