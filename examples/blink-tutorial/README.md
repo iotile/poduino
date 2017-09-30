@@ -172,7 +172,7 @@ With the BLE112 dongle, and on the same terminal where you have your python virt
 
 Before we type any commands, we need the **IOTile Device ID** for your PODuino. You are linkely to find this ID on a sticker on your PODuino board.
 
-<img src="/images/iotile-device-id.jpg" alt="PODuino Device ID" width="300">
+<img src="/images/iotile-device-id.jpg" alt="PODuino Device ID" width="200">
 
 You can also get the PODuino ID by scanning using for IOTile Devices. Use the following command to scan for IOTile Devices (including your PODuino). Assumes you are within 50 feet from your device:
 
