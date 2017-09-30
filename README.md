@@ -20,7 +20,7 @@ The following pins are used to connect the **Arduino Mega 2560** with the rest o
 
 Make sure you have a jumper installed on your PODuino as follows
 
-<img src="/images/iotile-device-id.jpg" alt="PODuino Jumper Setup" width="400">
+<img src="/images/jumper.jpg" alt="PODuino Jumper Setup" width="400">
 
 ## Installation
 
