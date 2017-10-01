@@ -1,20 +1,18 @@
-# PODuino Tutorial - LED Blink
+# PODuino Tutorial - LED Blinker
 
-This is the simplest example to demonstrate how to use the PODuino and IOTile core tools to remotely make an LED turn On or Off.
+This simple example demonstrates the ease of connecting any Arduino project to a low power wireless network via IOTile. In this tutorial, we will use the Arch PODuino and IOTile core tools to remotely make an LED turn On or Off via Bluetooth Low Energy.
 
 ## Part 1: Make the PODuino Blink
 
-The PODuino can be used just like any other **Arduino Mega 2560**, and theefore, any example you can find on the web for this board should work on the PODuino.
+The Arch PODuino is meant to be used just like any other **Arduino Mega 2560**, while providing a bridge to IOTile.  Therefore, any Arduino example you can find on the web for this board should work on the PODuino as well.
 
-So, lets start with the traditional [Arduino Blink Example](https://www.arduino.cc/en/Tutorial/Blink) usually used as the first tutorial for a new Arduino user. 
+So, let's start with the traditional [Arduino Blink Example](https://www.arduino.cc/en/Tutorial/Blink) usually used as the first tutorial and equivalent of **Hello World!** for a new Arduino user. 
 
-If you have not done it, make sure you have the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software).
+If you don't have it yet, make sure you are using the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software).
 
-But lets get the PODuino version of this example:
+Now we illustrate the PODuino version of the Blink example:
 
 ### HW Setup
-
-The equivalent of the **Hello World!** for an Arduino is to make its internal LED blink. This can be done on the PODuino (as with most Arduinos).
 
 Open the Arduino IDE, create a new file, and copy the following code:
 
@@ -33,41 +31,41 @@ void loop() {
 }
 ```
 
-The first thing you do is to initialize LED_BUILTIN pin as an output pin with the line
+Initialize the LED_BUILTIN pin as an output pin:
 
 ```
 pinMode(LED_BUILTIN, OUTPUT);
 ```
 
-In the main loop, you turn the LED on with the line:
+In the main loop, turn on the LED by setting the pin to HIGH:
 
 ```
 digitalWrite(LED_BUILTIN, HIGH);
 ```
 
-which creates a voltage difference across the pins of the LED, and lights it up. Then you turn it off with the line:
+This pulls the voltage HIGH across the LED, turning it ON. To turn the LED back OFF, switch the voltage to LOW:
 
 ```
 digitalWrite(LED_BUILTIN, LOW);
 ```
 
-The loop uses a couple of one second delays between the ON and OFF commands:
+Note that the code above uses a couple of one second delays between the ON and OFF commands to make the blinking easily visible:
 
 ```
 delay(1000);
 ```
 
-Connect your PODuino to your computer via the USB, and using the Arduino IDE, click on **Upload** to program the Arduino portion of the PODuino and see the internal LED blink.
+Now connect the PODuino to your computer via USB, and using the Arduino IDE, click on **Upload** to program the Arduino Mega.  The internal LED should blink.  Hello World!
 
-## Part 2: Controlling the LED via Bluetooth Low Energy
+## Part 2: Controlling the LED via IOTile and Bluetooth Low Energy
 
 ### 2.1. Setting up IOTile Core Tools
 
-Lets now use the IOTile side of the PODuino to remotely turn the same LED ON or OFF. This will demonstrate the value of the PODuino over other traditional Arduino boards.
+Let's now use the IOTile side of the PODuino to say Hello World i.e. remotely turn the same LED ON or OFF via wireless Bluetooth Low Energy. This will demonstrate the ease of integrating IOTile and low power wireless capabilities into all kinds of Arduino projects.  
 
 #### Install necessary Software Tools
 
-You will need access to Python 2.7+ and the following tools:
+You will need access to Python 2.7+ and the following tools.  Install them now as needed:
 
 1. Install the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software)
 2. Install the [IOTile Coretools](/docs/installation/iotile-coretools.md) 
@@ -75,11 +73,9 @@ You will need access to Python 2.7+ and the following tools:
 
 #### BLE Dongle
 
-IOTile Tools currently only support communication to the IOTile Controller in the PODuino via
-the [BLE112 Dongle](https://www.digikey.com/catalog/en/partgroup/bled112-bluetooth-smart-dongle/40600)
-which either came with your PODuino or you can buy from Arch Systems or other sources.
+Currently, communication to the PODuino IOTIle Controller is only supported via the [BLED112 Dongle](https://www.digikey.com/catalog/en/partgroup/bled112-bluetooth-smart-dongle/40600).  You should have received this dongle with your PODuino, but if not it can be bought separately from Arch Systems or other online vendors. 
 
-Connect the BLE112 to another USB port in your computer. Note that at least while programming the Arduino Mega, you may need both the USB cable to the PODuino and the BLE112.
+Connect the BLED112 dongle to another USB port in your computer. Note that while programming the Arduino Mega, you may need to keep the USB cable connection intact in addition to the wireless BLED112 dongle connection.
 
 ### 2.2. Sketch to enable/disable LED Blink
 
@@ -135,21 +131,21 @@ void onEventReceived(unsigned int event)
 }
 ```
 
-Now, instead of just blinking the LED, we are configuring the Arduino to respond to any signal sent via Pin 39, which is a digital pin that connects the Arduino Mega with the GPIO IOTile. When a new value comes via pin39, the `onEventReceived()` function is called, which simply checks the event ID to know to enable or disable the LED blinking.
+Now, instead of just blinking the LED, we are configuring the Arduino to respond to any signal sent via Pin 39, which is a digital pin that connects the Arduino Mega with the GPIO IOTile. When a new value comes via pin39, the `onEventReceived()` function is called. This function checks the event ID to know whether to enable or disable LED blinking.
 
-Save the new sketch, and click on the **Upload** button to upload it to the Arduino Mega in the PODuino. 
+Save the new sketch, and click on the **Upload** button to program the Arduino Mega. 
 
-At this point, you can either leave the USB Cable connected to the computer (to power it up, for example), or you can disconnect from the computer and use an alternative USB charger.
+You no longer need the USB cable for programming, but do need to continue powering the PODuino.  Leave the USB cable connected to the computer for power or use an alternative USB charger.
 
 ### 2.3. Remotely enableling or disableling the LED Blink
 
-With the BLE112 dongle, and on the same terminal where you have your python virtualenv running.
+Now we will remotely enable and disable the LED blink with the same terminal we have the python virtualenv runnning.  
 
-Before we type any commands, we need the **IOTile Device ID** for your PODuino. You are linkely to find this ID on a sticker on your PODuino board.
+Before we type any commands, we need the **IOTile Device ID** for your PODuino. Find the ID on the device label on your PODuino board.
 
 <img src="/images/iotile-device-id.jpg" alt="PODuino Device ID" width="200">
 
-You can also get the PODuino ID by scanning using for IOTile Devices. Use the following command to scan for IOTile Devices (including your PODuino). Assumes you are within 50 feet from your device:
+You can also get the PODuino's Device ID by scanning. Use the following command to scan for any powered IOTile Devices in the vicinity of your BLE wireless network:
 
 ```
 (iotile)$ iotile hw --port=bled112 scan
@@ -166,37 +162,37 @@ You can also get the PODuino ID by scanning using for IOTile Devices. Use the fo
 
 The `uuid` field at the end shows you the IOTile Device ID (as an integer).
 
-Replacing `<UUID>` with your own PODuino ID, type the following command
+Replace `<UUID>` with your own PODuino ID, and type the following command:
 
 ```
 (iotile)$ iotile hw --port=bled112 connect <UUID> get 11
 ```
 
-Examples
+It should look something like this:
 
 ```
 (iotile)$ iotile hw --port=bled112 connect 0x1c8 get 11
 (iotile)$ iotile hw --port=bled112 connect 456 get 11
 ```
 
-you should now see the followng on your console:
+After exectuing the command, you should see the followng on your console:
 
 ```
 (ArduinoBridge)
 ```
 
-Now you can type `send_event` with a `0 or 1` to control the LED:
+Now you can type `send_event` with a `0` or `1` to control the LED:
 
 ```
 (ArduinoBridge) send_event 1
 (ArduinoBridge) send_event 0
 ```
 
-As said before, after programming teh Arduino portion, you no longer need to keep the USB cable connected to the computer. You can either connec that same cable to a USB charger, or you can use an **Arduino Mega Charger** (Not provided). This means that we can now control the Arduino remotely via the BLE112 dongle and the IOTile Controller and IOTile GPIO on the PODuino.
+Now you are triggering the LED Blink over an IOTile wireless network! Next step is to understand how to extend this capability to data reading and cloud integration. 
 
 ## Part 3: Reading Data from the PODuino
 
-For simplicity, we will not connect this example to any actual sensors, so instead we will simply log every time the LED Blink is enabled, or disabled, so we know at what time the operation was done. This information will be stored on the device memory, the same way we would be storing sensor data collected by the Arduino side (e.g. temperature readings).
+You may want to connect all sorts of more interesting sensors for data collection, but to begin with, we will simply log data for every time the LED Blink is enabled, or disabled.  This will generate a time series stream of LED status, very similar to logging the uptime or downtime of a connected appliance. The data will be stored initially in device memory on the IOTile, the same way sensor data is stored on the Arduino side in typical Arduino examples. 
 
 ### 3.1. Sketch to log when LED Blink is enabled/disabled
 
@@ -215,9 +211,9 @@ void onEventReceived(unsigned int event)
 }
 ```
 
-We are simply sending the value of `event` everytime an event is recived. We are attaching that event value to `Input 10` (We could have used any stream id you want between 0 and 128). Note that this is an `Input` from the IOTile side point of view.
+Here we send the value of `event` everytime an event, the LED blink in this case, occurs. We are attaching that event value to `Input 10` (any stream id between 0 and 128 is valid). Note that this event stream is an `Input` from the IOTile perspective, as it will be injected over the wireless network into the cloud.
 
-Now, back to the Python console, type
+Now, turning back to the Python console, input the following:
 
 ```
 (ArduinoBridge) send_event 1
@@ -231,24 +227,24 @@ stream: 10
 (ArduinoBridge) quit
 ```
 
-You can see how `last_event` shows the last value sent by the Arduino via the `bridge.sendEvent()`.
+You can see how `last_event` shows the last value sent by the Arduino Mega via the `bridge.sendEvent()`.
 
-#### But what's `Input 10` anyway? The Sensor Graph
+#### But what's `Input 10` anyway? Introducing SensorGraph
 
-By default all events received from the Arduino are forwarded on the IOTile Controller for processing in Sensor Graph, but without an appropriate configuration they will just be ignored.
+By default all events received from the Arduino Mega are forwarded to the IOTile Controller for processing via the SensorGraph.  SensorGraph is a core part of the IOTile architecture [Read more here - coming soon]. Effectively, it is a graph-based scheduler that allows for easy algorithm development within an optimized environment.  This is a key component in how IOTile allows one to design custom wireless systems and automatically achieve secure, power-optimized, and latency-optimized configurations.  
 
-In our case, we configured the Arduino to put out an event in stream 10 every time an event occurs (the blink is enabled or disabled) and you want to log that event to flash storage and send it to the cloud automatically with the name output 10.
+In this example, we configured the Arduino Mega to put out an event in stream 10 every time the LED blink occurs.  This event is logged in flash and will be sent to the cloud automatically with the name output 10.  This configuration is important or else the stream will be ignored by SensorGraph.
 
-### 3.2 The Sensor Graph
+### 3.2 The SensorGraph
 
-First, connect to your pod and navigate to the SensorGraph manager:
+First, connect to your PODuino via Bluetooth and navigate to the SensorGraph manager:
 
 ```
 (iotile)$ iotile hw --port=bled112 connect <UUID> controller sensor_graph
 (SensorGraph)
 ```
 
-Now delete whatever SensorGraph might be there:
+Now clear the SensorGraph currently in place:
 
 ```
 (SensorGraph) clear
@@ -256,7 +252,7 @@ Now delete whatever SensorGraph might be there:
 (SensorGraph) disable
 ```
 
-Now enter the following commands (you can just copy-paste them directly into your terminal):
+Enter the following commands (you can just copy-paste them directly into your terminal):
 
 ```
 disable
@@ -275,15 +271,15 @@ persist
 enable
 ```
 
-The first three lines clear any old sensor graph and prepare for programming a new one. The add_node line is what tells SensorGraph to listen for values on input 10 and copy them to flash with the name `output 1` (`0x5001`).
+The first three lines clear any old sensor graph and prepare for programming a new one [David - why do you have to do the same commands again in a different order.  Didn't you just do them above?]. The add_node line tells SensorGraph to listen for values on input 10 and to copy them to flash with the name `output 1` (`0x5001`).
 
-The next add_node and set_constant line tell SensorGraph to stream historical data when someone connects to the device
+The second add_node and set_constant line tell SensorGraph to stream historical data when someone connects to the device.
 
-The two add_streamer lines configure sensor graph to send data to the cloud in the form of a RobustReport.
+The two add_streamer lines configure SensorGraph to send data to the cloud in the form of a Robust Report [Read more about Robust Reports- coming soon].
 
-The persist line saves the sensor graph to flash so it persists across device resets and the enable line starts the new sensor graph.
+The persist line saves the SensorGraph to flash so it persists across device resets.  And finally, the enable line starts the new SensorGraph.
 
-Lets go back and log some events. Assuming you have not quit the IOTile console, just type
+Now let's go back and log some events. Assuming you have not quit the IOTile console, just enter:
 
 ```
 (SensorGraph) back
@@ -304,28 +300,28 @@ Stream 20481: 0 at 2017-09-30 15:42:38.178995
 Stream 20481: 124 at 2017-09-30 15:42:43.178995
 ```
 
-The example above not only shows how to navigate though the IOTile console (`shell`) but after sending a few events, it shows how to check that everything is working with the Sensor Graph by inspecting the input 10 stream:
+The example above not only shows how to navigate though the IOTile console (`shell`), but after sending a few events, it shows how to check that everything is working with the SensorGraph you created by inspecting the input 10 stream:
 
 ```
 (SensorGraph) inspect_virtualstream 'input 10'
 124
 ```
 
-This shows the last value (in this case `124`) received from the Arduino and updates every time a new event is received.
+This shows the last value (in this case `124`) received from the Arduino Mega.  It updates every time a new event is received.
 
-The last command, `download_stream` is used to download the stream. You can see how three events were downloaded, which makes sense given that we sent three `sent_event` commands a few lines above, so we expected three records to have been recorded. You can see how the `output 1` stream is reported (`20481` or `0x5001`), as well as the event value, and the timestamp.
+The last command, `download_stream`, is used to download the stream. You can see how three events were downloaded, which makes sense given that we sent three `sent_event` commands a few lines above, so we expected exactly three records. You can see the format of the `output 1` stream (`20481` or `0x5001`), as well as the event value, and the timestamp.
 
-At this point, we have shown how to send information to the Arduino, and how the Arduino can send streaming information back. Note that an IOTile is optimized for low power, and in most IoT low power applications, we should be careful not to send too much information. For example, if you were measuring temperature, you may want to only store a value every ten minutes or so. This is something that can be controlled on the sensor graph (see [documentation](http://coretools.readthedocs.io/en/latest/tutorials.html#introduction-to-sensorgraph)).
+At this point, we have reviewed how to send information to the Arduino Mega, and how the Arduino Mega can send streaming information back through IOTile. Note that IOTile is optimized for low power networks.  A key part of achieving low power, as well as a best practice for security and robustness, is processing most data at the point of collection and sending only necessary information to other nodes or the cloud. For example, if you were measuring temperature, you may want to only store the instantaneous value every ten minutes or even an average over a greater period of time. This is something that can be easily configured on the SensorGraph (see [documentation](http://coretools.readthedocs.io/en/latest/tutorials.html#introduction-to-sensorgraph)).
 
-## Part 4: The IOTile Cloud
+## Part 4: IOTile Cloud
 
-The **IOTile Cloud** was built especially to work with **IOTile Devices**, so it makes it really easy for you to upload data, visualize it, and access it via a simple Rest API.
+**IOTile Cloud** was built to provide automatic cloud integration for any **IOTile Device**, making it easy to upload, store, and visualize data as well as access it for 3rd party application development via a simple Rest API.
 
 See [IOTile Cloud Basics](../../docs/iotile-cloud-basics.md)
 
 ### 4.1. Setup Variables
 
-Go back to https://iotile.cloud, and on your project page, use the left menu,
+Go back to https://iotile.cloud. On the project page, using the left menu 
 under *Project Settings*, select *Data Stream Variables*, and click **New Variable** :
 
 - **Name:** Count
@@ -344,14 +340,16 @@ After creating the Variable, click on **IO Configuration**:
 ### 4.2. Upload Data
 
 Go back to the PODuino, power it up, and start playing with the UP and DOWN buttons.
-When you are ready to upload the data, use the **IOTile Companion** to select the
-project.
+The easiest way to upload data is to use the companion mobile app.  Download **IOTile Companion** 
+from the iOS or Android app stores if you don't have it already, log in, select your project, 
+and scan for the device. 
 
-If you are within 50 feet, click on the **Collect All** button in the bottom of
-the app. This process will connect to the device, read the streamer report generated
-(which we previously configured with the Sensor Graph), and will upload it to the cloud.
+If you are within 50 feet, you will see a `green light` icon next to the device.  
+Click on the **Collect All** button in the bottom of the app. 
+This process will connect to the device, read the streamer report generated
+(which we previously configured with the SensorGraph), and upload it to the cloud.
 
-It usually takes a few minutes for the data to propagate to the database, but at this
+It usually takes a few minutes for the data to propagate to the database.  At this
 point, you can go to the [IOTile Web App](https://app.iotile.cloud) and you should see
 a graph with the `count` data sent by your PODuino.
 
@@ -369,8 +367,10 @@ Or get the following APIs to get the list of your projects, devices or streams:
 
 ## Have fun!!!
 
-At this point, you have successfully managed to control the PODuino and build a data
-logger. All with BLE support, and without writing any web site code.
+Congratulations! You moved from blinking the Arduino Mega LED via the standard Arduino IDE 
+to setting up an IOTile low power wireless network with a cloud-connected data logger.  You've
+done a complete device-to-cloud integration without any of the typical complexity of wireless
+development or web site code.  What will you build next?
 
 
 
