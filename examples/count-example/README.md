@@ -1,16 +1,16 @@
-# Up/Down Counter
+# PODuino Example - Up/Down Counter
 
-A simple example that shows how to use the PODuino and the OSEPP LCD display to allow users to count up or down, recording each time the count changes and uploading that to the IOTile Cloud.
+This simple example demonstrates how to use the PODuino and the OSEPP LCD display for a basic counting application.  The PODuino will record each time the count changes and allow you to upload the historical record to IOTile Cloud over Bluetooth Low Energy.  
 
 ## Materials
 
 1. PODuino v1.0
-1. BLE112 Dongle
-1. [OSEPP *16×2 LCD Display & Keypad Shield*](https://www.osepp.com/electronic-modules/shields/45-16-2-lcd-display-keypad-shield)
+2. BLE112 Dongle
+3. [OSEPP *16×2 LCD Display & Keypad Shield*](https://www.osepp.com/electronic-modules/shields/45-16-2-lcd-display-keypad-shield)
 
 ## Software
 
-Install necessary software with:
+You will need access to following tools:
 
 1. Install the [IOTile Coretools](/docs/installation/iotile-coretools.md) 
 2. Install the [IOTile Arduino Bridge](/docs/installation/iotile-arduino-bridge.md)
@@ -21,8 +21,8 @@ Install necessary software with:
 
 Using the Arduino IDE, open the `firmware.ino` file included in this example.
 
-This sketch will listen at the Up and Down buttons in the LCD display, and when pressed,
-it will increment or decrement an in-memory counter. This counter is restricted within the range 0 to 100.
+This sketch will listen to the Up and Down buttons in the LCD display and, when pressed,
+will increment or decrement an in-memory counter. This counter is restricted within the range 0 to 100.
 
 The sketch will also send the counter value every time it is modified to `input 10` in the IOTile Controller.
 Later we will describe the required IOTile Configuration to have this input copied to a buffered output that
@@ -33,12 +33,12 @@ called.
 
 ### Programming the PODuino
 
-The PODuino requires two separate steps to configure:
+The PODuino requires two separate steps to configure, programming the Arduino-side and IOTile-side:
 
-1. The Arduino Mega needs to be programmed via the USB Cable and a computer the same way any Arduino compatible board is programmed. There are a number of tutorials and blogs explaining how to program an Arduino. Just make sure you use instructions compatible with the *Arduino Mega 2560*.
+1. Arduino-side: The Arduino Mega is programmed via a USB Cable and a computer the same way any Arduino compatible board is programmed. There are a number of tutorials and blogs explaining how to program an Arduino. Just make sure you use instructions compatible with the *Arduino Mega 2560*.
 
-1. The rest of the IOTile device is already pre-programmed with the IOTile firmware, but requires a Sensor Graph
-to be configured for the device to be used as a logger. We will explain how to configure the Sensor Graph later on.
+2. IOTile-side: The IOTile portion is pre-programmed with its firmware, so you can create what we call a SensorGraph 
+to configure the device for your own data logging. We will explain how to configure the SensorGraph later on.
 
 # Tutorial
 
@@ -46,7 +46,7 @@ to be configured for the device to be used as a logger. We will explain how to c
 
 ### 1. Hardware Setup
 
-Connect the PODuino with a USB Cable to a computer: you will need the device to be connected
+Connect the PODuino with a USB Cable to a compute; you will need the device to be connected
 to upload the program initially. The computer should have both the Arduino IDE and IOTile Tools installed.
 
 Attach the LCD display shield to your PODuino board as shown below:
