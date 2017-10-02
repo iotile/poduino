@@ -1,10 +1,11 @@
 # PODuino v1.0
 
 The **Poduino v1.0** is a development board that combines the *Arduino Mega 2560*
-with and *IOTile Device*.
+with an *IOTile Device* for data collection and control over Bluetooth.
 
-The **Arduino Mega 2560** in the **PODuino** is just another Arduno, and can be used on its own like
-any other Arduino. Most every **Arduino Mega 2560** example/tutorial should work with the **PODuino**.
+The **Arduino Mega 2560** within the **PODuino** can be used on its own just like any other Arduino.
+Therefore, any **Arduino Mega 2560** example/tutorial should work with the **PODuino** as well allowing you 
+to combine Arduino projects with low power wireless connectivity and the cloud.
 
 ![PODuino IOTile Device](/images/poduino.jpg)
 
@@ -18,13 +19,13 @@ The following pins are used to connect the **Arduino Mega 2560** with the rest o
 | 15 | RX3 |
 | 39 | Digital |
 
-Make sure you have a jumper installed on your PODuino as follows
+Make sure you have a jumper installed on your PODuino as shown:
 
 <img src="/images/jumper.jpg" alt="PODuino Jumper Setup" width="250">
 
-## Installation
+## Setup
 
-In order for you to use the PODuino, you will require Python 2.7 to be install in your machine. In addition, you will need:
+You will need access to Python 2.7+ and the following tools. Install them now as needed:
 
 1. Install the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software)
 2. Install the [IOTile Coretools](/docs/installation/iotile-coretools.md) 
