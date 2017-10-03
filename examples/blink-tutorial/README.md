@@ -1,4 +1,4 @@
-# PODuino Tutorial - LED Blinker
+# PODuino Tutorial - Blink
 
 This simple example demonstrates the ease of connecting any Arduino project to a low power wireless network via IOTile. In this tutorial, we will use the Arch PODuino and IOTile core tools to remotely make an LED turn On or Off via Bluetooth Low Energy.
 
