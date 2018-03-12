@@ -19,7 +19,7 @@ The following pins are used to connect the **Arduino Mega 2560** with the rest o
 | 15 | RX3 |
 | 39 | Digital |
 
-Make sure you have a jumper installed on your PODuino as shown:
+Make sure you have a jumper installed on your PODuino as shown (meaning on the top position <sup>[1](#footnote-1)</sup>):
 
 <img src="/images/jumper.jpg" alt="PODuino Jumper Setup" width="250">
 
@@ -44,3 +44,9 @@ A few tutorials and examples are included under the `/examples` directory.
 | [blink-tutorial](/examples/blink-tutorial/README.md) | Start with this simple example |
 | [count-example](/examples/count-example/README.md) | A more elaborated but still simple count up/down example |
 | [rfid-example](/examples/rfid-example/README.md) | Example of an RFID reader (incomplete) |
+
+
+---
+
+<span id="footnote-1">1: Some poduino versions have 'UART' written on top and 'TILEBUS' below, and some others have the
+revert.</span>

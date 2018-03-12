@@ -10,6 +10,9 @@ So, let's start with the traditional [Arduino Blink Example](https://www.arduino
 
 If you don't have it yet, make sure you are using the [latest Arduino IDE](https://www.arduino.cc/en/Main/Software).
 
+**Important**: If you are on Linux, be sure to have followed the [Arduino installation tutorial](https://www.arduino.cc/en/Guide/Linux#toc6) to
+allow non-root access to the serial port (else you will have errors while uploading your sketch).
+
 Now we illustrate the PODuino version of the Blink example:
 
 ### HW Setup
@@ -162,11 +165,13 @@ You can also get the PODuino's Device ID by scanning. Use the following command 
 
 The `uuid` field at the end shows you the IOTile Device ID (as an integer).
 
-Replace `<UUID>` with your own PODuino ID, and type the following command:
+Replace `<UUID>` with your own PODuino ID, and type the following command to connect to your PODuino through BLED112:
 
 ```
 (iotile)$ iotile hw --port=bled112 connect <UUID> get 11
 ```
+
+`get <tileID>` is an iotile command to get access to a specific tile (here 11 is the Arduino board)
 
 It should look something like this:
 
@@ -371,10 +376,3 @@ Congratulations! You moved from blinking the Arduino Mega LED via the standard A
 to setting up an IOTile low power wireless network with a cloud-connected data logger.  You've
 done a complete device-to-cloud integration without any of the typical complexity of wireless
 development or web site code.  What will you build next?
-
-
-
-
-
-
-
