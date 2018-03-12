@@ -49,4 +49,4 @@ A few tutorials and examples are included under the `/examples` directory.
 ---
 
 <span id="footnote-1">1: Some poduino versions have 'UART' written on top and 'TILEBUS' below, and some others have the
-invert.</span>
+revert.</span>
