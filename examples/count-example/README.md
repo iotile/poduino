@@ -161,50 +161,19 @@ By default all events received from the Arduino are forwarded on the IOTile Cont
 
 In our example, the Arduino is configured to put out an event in stream 10 every time an event occurs and we want to log that event to flash storage and send it to the cloud automatically with the name output 1.
 
-First, connect to your pod and navigate to the SensorGraph manager (again, assuming device `0x1f`)
+A sample `sensor-graph.sgf` is included. It simply listens to `input 10`, and copies its values to `output 1`. To compile and download to the device, you need to:
 
 ```
-> iotile hw --port=bled112 connect 0x1f controller sensor_graph
-(SensorGraph)
-
-# Now delete whatever SensorGraph might be there:
-(SensorGraph) disable
-(SensorGraph) clear
-(SensorGraph) reset
+pip install --upgrade iotile-sensorgraph 
+iotile-sgcompile sensor-graph.sgf -f snippet | iotile hw --port=bled112 connect <UUID> controller sensor_graph
 ```
 
-Now enter the following commands (you can just copy-paste them directly into your terminal):
+Now that you have done this step by step at least once, you can use the following command to program the sensor graph and confirm it worked:
 
 ```
-disable
-clear
-reset
-
-add_node "(input 10 always) => output 1 using copyA"
-
-add_node "(system input 1025 always && constant 1 always) => unbuffered node 20 using triggerStreamer"
-set_constant "constant 1" 0
-
-add_streamer "all outputs" controller False hashedlist telegram
-add_streamer "all system outputs" controller False hashedlist telegram --withother=0
-
-persist
-enable
-```
-
-The first three lines clear any old sensor graph and prepare for programming a new one. The add_node line is what tells SensorGraph to listen for values on input 10 and copy them to flash with the name output 1 (0x5000).
-
-The next add_node and set_constant line tell SensorGraph to stream historical data when someone connects to the device
-
-The two add_streamer lines configure sensor graph to send data to the cloud in the form of a RobustReport.
-
-The persist line saves the sensor graph to flash so it persists across device resets and the enable line starts the new sensor graph.
-
-Now that you have done this step by step at least once, you can use the following command to
-program the sensor graph and confirm it worked:
-
-```
-prepare_device.sh 0x1f
+# prepare_device.sh <UUID>
+# e.g.
+prepare_device.sh 0x01f
 ```
 
 ## Part 3: The IOTile Cloud

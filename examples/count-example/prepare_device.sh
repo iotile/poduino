@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # workon poduino
-iotile hw --port=bled112 connect $1 controller sensor_graph < sensor_graph.txt
+iotile-sgcompile sensor-graph.sgf -f snippet | iotile hw --port=bled112 connect $1 controller sensor_graph
 
 # Send an event to reset counter to 0
 iotile hw --port=bled112 connect $1 get 11 send_event 0

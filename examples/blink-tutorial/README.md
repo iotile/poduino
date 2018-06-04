@@ -244,52 +244,50 @@ In this example, we configured the Arduino Mega to put out an event in stream 10
 
 First, connect to your PODuino via Bluetooth and navigate to the SensorGraph manager:
 
-```
-(iotile)$ iotile hw --port=bled112 connect <UUID> controller sensor_graph
-(SensorGraph)
-```
+The `sensor-graph.sgf` shows a sample Sensor Graph. It needs to be compiled and downloaded into the IOTile Controller. 
 
-Now clear the SensorGraph currently in place:
+Our simple sensor graph with its description is:
 
 ```
-(SensorGraph) clear
-(SensorGraph) reset
-(SensorGraph) disable
+# Listen to input 10, and copy its values to output 1 (0x5001)
+on input 10
+{
+    copy => output 1;
+}
+
+## Streamer Configuration
+# Historical Data:
+#
+# Configure Sensor Graph to send two Streamer Reports to the cloud:
+# 0 - User Streams, in this case with Output 1 (0x5001)
+# 1 - System Streams (Battery reading plus other system streams)
+manual streamer on all outputs;
+manual streamer on all system outputs with streamer 0;
 ```
 
-Enter the following commands (you can just copy-paste them directly into your terminal):
+Before you can process sensor graphs, you most install the `iotile-sensorgraph` python package, if you didn't already:
 
 ```
-disable
-clear
-reset
-
-add_node "(input 10 always) => output 1 using copyA"
-
-add_node "(system input 1025 always && constant 1 always) => unbuffered node 20 using triggerStreamer"
-set_constant "constant 1" 0
-
-add_streamer "all outputs" controller False hashedlist telegram
-add_streamer "all system outputs" controller False hashedlist telegram --withother=0
-
-persist
-enable
+pip install --upgrade iotile-sensorgraph 
 ```
 
-The first three lines clear any old sensor graph and prepare for programming a new one [David - why do you have to do the same commands again in a different order.  Didn't you just do them above?]. The add_node line tells SensorGraph to listen for values on input 10 and to copy them to flash with the name `output 1` (`0x5001`).
-
-The second add_node and set_constant line tell SensorGraph to stream historical data when someone connects to the device.
-
-The two add_streamer lines configure SensorGraph to send data to the cloud in the form of a Robust Report [Read more about Robust Reports- coming soon].
-
-The persist line saves the SensorGraph to flash so it persists across device resets.  And finally, the enable line starts the new SensorGraph.
-
-Now let's go back and log some events. Assuming you have not quit the IOTile console, just enter:
+The sensor graph can be compiled and downloaded to the device with:
 
 ```
-(SensorGraph) back
-(NRF52832Controller) back
-(HardwareManager) get 11
+iotile-sgcompile sensor-graph.sgf -f snippet > sensor-graph.txt
+iotile hw --port=bled112 connect <UUID> controller sensor_graph < sensor-graph.txt
+```
+
+or 
+
+```
+iotile-sgcompile sensor-graph.sgf -f snippet | iotile hw --port=bled112 connect <UUID> controller sensor_graph
+```
+
+Now let's go back and log some events:
+
+```
+(iotile)$ iotile hw --port=bled112 connect <UUID> get 11
 (ArduinoBridge) send_event 1
 (ArduinoBridge) send_event 0
 (ArduinoBridge) send_event 1
