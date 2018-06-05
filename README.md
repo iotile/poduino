@@ -1,7 +1,9 @@
 # PODuino v1.0
 
-The **Poduino v1.0** is a development board that combines the *Arduino Mega 2560*
+The **PODuino v1.0** is a development board that combines the *Arduino Mega 2560*
 with an *IOTile Device* for data collection and control over Bluetooth.
+
+#### Contact Arch Systems (https://archsys.io) to get information on how you can get your own PODuino.
 
 The **Arduino Mega 2560** within the **PODuino** can be used on its own just like any other Arduino.
 Therefore, any **Arduino Mega 2560** example/tutorial should work with the **PODuino** as well allowing you 
