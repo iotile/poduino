@@ -4,6 +4,15 @@ on input 10
     copy => output 1;
 }
 
+# Make sure that every time the mobile app connects, the streamer is sent
+when connected to controller
+{
+    on connect
+    {
+        trigger streamer 0;
+    }
+}
+
 ## Streamer Configuration
 # Historical Data:
 #
