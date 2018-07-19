@@ -182,23 +182,23 @@ The **IOTile Cloud** was built especially to work with **IOTile Devices**, so it
 
 See [IOTile Cloud Basics](../../docs/iotile-cloud-basics.md)
 
-### 7. Setup Variables
+### 7. Setup Variables and Streams
 
-Go back to https://iotile.cloud, and on your project page, use the left menu,
-under *Project Settings*, select *Data Stream Variables*, and click **New Variable**:
+For this example, we will use a Python script to create the required variable and stream for `Output 1` ('5001').
 
-- **Name:** Count
-- **ID (Hex):** 5001
-- **Description:** PODuino Counter (Output 1)
-- **VarType:** Default (u)
-- Check **Web Only**
+Using the provided `cloud-create-stream.py` script, do
 
-After creating the Variable, click on **IO Configuration**:
+```
+pip install -U iotile-cloud  # if you have not done it
+python cloud-create-stream.py --device=d--xxxx 0x5001
+```
 
-- Leave **Multiply**, **Divide** and **Offset** with the defaults.
-- **Input Units**: Unit
-- **Value Type**: int
-- **Output Units**: Unit
+replacing xxxx with your PODuino device id.
+
+At this time, if you go back to https://iotile.cloud and select you Project, you can see the project
+variables and streams using the left side menu.
+
+You are now ready to upload data to this stream.
 
 ### 8. Upload Data
 
@@ -213,18 +213,6 @@ the app. This process will connect to the device, read the streamer report gener
 It usually takes a few minutes for the data to propagate to the database, but at this
 point, you can go to the [IOTile Web App](https://app.iotile.cloud) and you should see
 a graph with the `count` data sent by your PODuino.
-
-### 9. API Access to the Data.
-
-Using the API, you can access the Stream Data when ever needed. 
-
-Use https://iotile.cloud/api/v1/data/?filter=s--0000-XXXX--0000-0000-0000--YYYY-5001 to show all data for a given stream. Replace `XXXX` with your Project ID and `YYYY` with your device ID. 
-
-Or get the following APIs to get the list of your projects, devices or streams:
-
-- **Projects**: https://iotile.cloud/api/v1/project/
-- **Devices**: https://iotile.cloud/api/v1/device/
-- **Streams**: https://iotile.cloud/api/v1/stream/
 
 ## Have fun!!!
 
